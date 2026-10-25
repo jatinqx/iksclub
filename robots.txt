@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://iksiiserpune.in/sitemap.xml
