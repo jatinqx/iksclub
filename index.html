@@ -1082,6 +1082,18 @@ img,video,iframe,svg,object{max-width:100%}
   .slide-visual{display:flex;order:2}
   .slide-visual-box{height:clamp(260px,52vw,380px)}
 }
+/* ===== logo slides: big clean box, no blur ===== */
+.slide-visual:has(.slide-visual-box.logo)::before{display:none}
+.slide-visual-box.logo{-webkit-mask-image:none;mask-image:none;border-radius:28px;background:#fff;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.slide-visual-box.logo img{max-width:94%;max-height:94%;width:auto;height:auto;object-fit:contain}
+/* ===== mobile carousel: one slide at a time, horizontal ===== */
+@media(max-width:900px){
+  .carousel-slide{transition:transform .6s ease,opacity .6s ease}
+  .carousel-slide:not(.active){position:absolute!important;top:0;left:0;right:0;opacity:0;transform:translateX(100%);pointer-events:none}
+  .carousel-slide.before:not(.active){transform:translateX(-100%)}
+  .carousel-slide.active{transform:translateX(0);opacity:1}
+  .slide-visual-box{height:clamp(280px,86vw,440px)}
+}
 </style>
 </head>
 <body>
@@ -1526,6 +1538,7 @@ img,video,iframe,svg,object{max-width:100%}
         slides[current].classList.add('active');
         dots[current].classList.add('active');
         dots[current].setAttribute('aria-selected', 'true');
+        slides.forEach(function (sl, i) { sl.classList.toggle('before', i < current); });
       }
 
       function startAuto() {
